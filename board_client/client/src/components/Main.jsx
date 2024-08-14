@@ -1,6 +1,5 @@
-import { Link } from "react-router-dom";
 import Board from '../pages/Board';
-import List from '../pages/List';
+// import List from '../pages/List';
 import '../style/homeStyle.css';
 
 const Main = () => {

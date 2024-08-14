@@ -5,7 +5,11 @@ import { Link, useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import Swal from 'sweetalert2';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import List from './List'
+import Lists from './Lists'
+
+import { PlusOutlined } from '@ant-design/icons';
+import {Button,Form,Input,} from 'antd';
+const { TextArea } = Input;
 
 function Board() {
     const params = useParams();
@@ -48,8 +52,8 @@ function Board() {
             console.log('API 응답:', response.data);
             let data = response.data.json[0];
             document.querySelector('#is_title').value = data.title;
-            document.querySelector('#is_author').value = data.content;
-            document.querySelector('#is_text').value = data.write_id;
+            document.querySelector('#is_author').value = data.write_id;
+            document.querySelector('#is_text').value = data.content;
         }).catch(error => {alert('조회 오류'); return false;});
     };
 
@@ -192,45 +196,43 @@ function Board() {
         <section className="home">
             <div className="container">
             <div className="listcontainer">
-                <List/>
+                <Lists/>
             </div>
             <div className="boardcontainer">
                 <div>
-                    <h2>게시글 수정/삭제</h2>
+                    <h2>게시글 수정/삭제</h2><br/>
                 </div>
                 <div>
                     <form name="frm" id="frm" action="" method="post" >
                         <input id="article_no" type="hidden" name="article_no" />
                         <input id="is_Email" type="hidden" name="is_Email" value="guest" />
                         <input id="is_beforeSwtcode" type="hidden" name="is_beforeSwtcode" value={beforeSwtcode} />
-                        <p style={{ "textAlign": "right" }}>
+                        {/* <p style={{ "textAlign": "right" }}>
                             (*)표시는 필수입력사항 입니다.
-                        </p>
+                        </p> */}
                         <div className='tableClass'>
                             <table className="table">
                                 <tbody>
                                     <tr>
-                                        <th>
-                                            <label htmlFor="is_title">제목<span>(*)</span></label>
-                                        </th>
                                         <td>
-                                            <input type="text" name="is_title" id="is_title" />
+                                            <Form.Item label="제목" htmlFor="is_title" labelCol={{ style: { fontFamily: "Gowun Dodum", fontWeight: 400 } }} >
+                                                <Input type="text" name="is_title" id="is_title" style={{ fontFamily: "Gowun Dodum", fontWeight: 400}}/>
+                                            </Form.Item>
+                                            {/* <input type="text" name="is_title" id="is_title" /> */}
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th>
-                                            <label htmlFor="is_author">작성자(*)</label>
-                                        </th>
                                         <td>
-                                            <input type="text" name="is_author" id="is_author" />
+                                            <Form.Item label="작성자" htmlFor="is_author" labelCol={{ style: { fontFamily: "Gowun Dodum", fontWeight: 400 } }}>
+                                                <Input type="text" name="is_author" id="is_author" style={{ fontFamily: "Gowun Dodum", fontWeight: 400}}/>
+                                            </Form.Item>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th>
-                                            <label htmlFor="is_text">설명(*)</label>
-                                        </th>
                                         <td>
-                                            <textarea name="is_text" id="is_text" rows="" cols=""></textarea>
+                                            <Form.Item label="내용" htmlFor="is_text" labelCol={{ style: { fontFamily: "Gowun Dodum", fontWeight: 400 } }}>
+                                                <TextArea rows={10} name="is_text" id="is_text" style={{ fontFamily: "Gowun Dodum", fontWeight: 400}}/>
+                                            </Form.Item>
                                         </td>
                                     </tr>
                                 </tbody>

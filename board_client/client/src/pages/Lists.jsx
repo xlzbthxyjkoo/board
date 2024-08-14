@@ -3,10 +3,11 @@ import React, {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import axios from  'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Swal from 'sweetalert2'
 import { useNavigate } from "react-router-dom";
+
+import { Avatar, Button, List, Skeleton} from 'antd';
  
-function List(props){
+function Lists(props){
 
     let navigate = useNavigate();
     const [append_List, setAppend_List] = useState([]);
@@ -55,14 +56,21 @@ function List(props){
     useEffect(() => {
         callListApi();
     },[]);
+
+    useEffect(() => {
+        console.log("List updated: ", append_List);
+    }, [append_List]);  // append_List가 변경될 때마다 로그를 출력
     
     
     return (
             <div className="listcontainer">
                 <div className="col-md-12">
                     <h2>게시글 목록</h2>
-                    <div>
-                        <Link to={'/Board/register'}>등록</Link>
+                    <div className='buttoncontainer'>
+                        <Link to={'/Board/register'}>
+                            <Button type="primary" style={{ fontFamily: "Gowun Dodum", fontWeight: 400, fontSize: 12}}>글쓰기
+                            </Button>
+                        </Link>
                     </div>
                     <div>
                         <table className="table table-striped">
@@ -87,4 +95,4 @@ function List(props){
       
     )
 }
-export default List;
+export default Lists;
