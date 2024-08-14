@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from "react-router-dom";
 
 import { Avatar, Button, List, Skeleton} from 'antd';
+import { FormOutlined } from '@ant-design/icons';
  
 function Lists(props){
 
@@ -32,10 +33,10 @@ function Lists(props){
                     result.push(
                         <tr key={i} onClick={() => handleRowClick(data.article_no)}>
                             <td>{data.article_no} </td>
-                            <td>{data.title} </td>
-                            <td>{data.content} </td>
+                            <td className="truncate">{data.title} </td>
+                            <td className="truncate">{data.content} </td>
                             <td>{write_date} </td>
-                            <td>{data.write_id} </td>
+                            <td className="truncate">{data.write_id} </td>
                         </tr>
                     )
                 }
@@ -68,23 +69,24 @@ function Lists(props){
                     <h2>게시글 목록</h2>
                     <div className='buttoncontainer'>
                         <Link to={'/Board/register'}>
-                            <Button type="primary" style={{ fontFamily: "Gowun Dodum", fontWeight: 400, fontSize: 12}}>글쓰기
-                            </Button>
+                            <FormOutlined style={{ color: 'blue-3', fontSize: '20px'}}/>
+                            {/* <Button type="primary" style={{ fontFamily: "Gowun Dodum", fontWeight: 400, fontSize: 12}}>글쓰기
+                            </Button> */}
                         </Link>
                     </div>
                     <div>
-                        <table className="table table-striped">
+                        <table className="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>no.</th>
-                                    <th>제목</th>
-                                    <th>내용</th>
-                                    <th>날짜</th>
-                                    <th>작성자</th>
+                                    <th scope="col">no.</th>
+                                    <th scope="col">제목</th>
+                                    <th scope="col">내용</th>
+                                    <th scope="col">날짜</th>
+                                    <th scope="col">작성자</th>
                                 </tr>
                             </thead>
                         </table>
-                        <table className="table table-striped">
+                        <table className="table table-hover">
                             <tbody>
                                 {append_List}
                             </tbody>
