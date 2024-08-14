@@ -14,25 +14,29 @@ function Board() {
     let navigate = useNavigate();
     let handleFileInput = () => {};
 
-        // 폼 필드를 초기화하는 함수
-    // const clearFormFields = () => {
-    //     document.querySelector('#is_title').value = '';
-    //     document.querySelector('#is_author').value = '';
-    //     document.querySelector('#is_text').value = '';
-    // };
+    //폼 필드를 초기화하는 함수
+    const clearFormFields = () => {
+        document.querySelector('#is_title').value = '';
+        document.querySelector('#is_author').value = '';
+        document.querySelector('#is_text').value = '';
+    };
 
     useEffect(() => {
         if(beforeSwtcode === 'register') {
-            //등록에 왔을 때는 수정버튼을 사라지게 함
+            //등록에 왔을 때는 수정, 삭제 버튼을 사라지게 함
             document.querySelector('.modifyClass').style.display = 'none';
             document.querySelector('.deleteClass').style.display = 'none';
+            document.querySelector('.saveClass').style.display = 'inline-block';
             // 등록 시 폼 필드 초기화
-            // clearFormFields();
+            clearFormFields();
         }
         else {
-            callSwToolInfoApi();
             //수정에 왔을 때는 저장버튼을 사라지게 함
             document.querySelector('.saveClass').style.display = 'none';
+            document.querySelector('.modifyClass').style.display = 'inline-block';
+            document.querySelector('.deleteClass').style.display = 'inline-block';
+
+            callSwToolInfoApi();
         }
     }, [beforeSwtcode]); // beforeSwtcode가 변경될 때만 실행
 
