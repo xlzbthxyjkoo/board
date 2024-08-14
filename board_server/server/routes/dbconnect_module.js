@@ -32,6 +32,7 @@ router.post('/', (req, res) => {
     //pool에 있는 거 꺼내 옴
     pool.getConnection(function (err, connection){
         connection.query(query, function (error, results) {
+
             if(error) {
                 console.log('db error : ' + error);
             }

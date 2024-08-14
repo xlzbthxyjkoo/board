@@ -94,7 +94,6 @@ function Board() {
 
     const sweetalertSucc = (title, showConfirmButton) => {
         Swal.fire({
-            position: 'bottom-end',
             icon: 'success',
             title: title,
             showConfirmButton: showConfirmButton,
@@ -202,15 +201,15 @@ function Board() {
                                 </table>
                                 <div style={{ "marginBottom": "44px" }}>
                                     <Link to={'/'} ><span><HomeOutlined style={{ color: 'gray', fontSize: '20px', marginRight: '120px'}}/></span></Link>
-                                    <a href="" className='saveClass' onClick={(e) => submitClick('save', e)}><span><UploadOutlined style={{ color: 'blue-4', fontSize: '20px', marginLeft: '140px'}}/></span></a>
+                                    <a href="" className='saveClass' onClick={(e) => submitClick('save', e)}><span><UploadOutlined style={{ color: 'blue', fontSize: '20px', marginLeft: '140px'}}/></span></a>
                                     <a href="" className='modifyClass' onClick={(e) => submitClick('modify', e)}>
                                         <span>
-                                            <EditOutlined style={{ color: 'green-3', fontSize: '20px', marginRight: '120px'}}/>
+                                            <EditOutlined style={{ color: 'green', fontSize: '20px', marginRight: '120px'}}/>
                                         </span>
                                     </a>
                                     <a href="#n" className='deleteClass' onClick={(e) => deleteSwtool(e)}>
                                         <span>
-                                            <DeleteOutlined style={{ color: 'red-3', fontSize: '20px' }}/>
+                                            <DeleteOutlined style={{ color: 'red', fontSize: '20px' }}/>
                                         </span>
                                     </a>
                                 </div>

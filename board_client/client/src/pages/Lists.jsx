@@ -5,8 +5,8 @@ import axios from  'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from "react-router-dom";
 
-import { Avatar, Button, List, Skeleton} from 'antd';
 import { FormOutlined } from '@ant-design/icons';
+import { Pagination} from 'antd';
  
 function Lists(props){
 
@@ -14,11 +14,12 @@ function Lists(props){
     const [append_List, setAppend_List] = useState([]);
 
     let callListApi = async () => {
-        axios.post('/api/board/swboard?type=list', {  
+        axios.post('/api/board/swboard?type=list', { 
         }).then(response => {
             try {
                 let result = [];
                 let SwToolList = response.data;
+
                 for(let i = 0; i < SwToolList.json.length; i++) {
                     let data = SwToolList.json[i];
                     // let title = data.title;
@@ -53,10 +54,10 @@ function Lists(props){
     const handleRowClick = (articleNo) => {
         navigate(`/Board/${articleNo}`); // Navigate to the Board view with article number
     };
-    
+
     useEffect(() => {
         callListApi();
-    },[]);
+    }, []); 
 
     useEffect(() => {
         console.log("List updated: ", append_List);
@@ -70,8 +71,6 @@ function Lists(props){
                     <div className='buttoncontainer'>
                         <Link to={'/Board/register'}>
                             <FormOutlined style={{ color: 'blue-3', fontSize: '20px'}}/>
-                            {/* <Button type="primary" style={{ fontFamily: "Gowun Dodum", fontWeight: 400, fontSize: 12}}>글쓰기
-                            </Button> */}
                         </Link>
                     </div>
                     <div>
@@ -87,7 +86,7 @@ function Lists(props){
                             </thead>
                         </table>
                         <table className="table table-hover">
-                            <tbody>
+                            <tbody className="listbody">
                                 {append_List}
                             </tbody>
                         </table>
