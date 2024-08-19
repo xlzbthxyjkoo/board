@@ -14,6 +14,7 @@ const { TextArea } = Input;
 function Board() {
     const params = useParams();
     const beforeSwtcode = params.article_no;
+    const [form] = Form.useForm(); // Form 인스턴스 생성
     let navigate = useNavigate();
 
     useEffect(() => {
@@ -21,31 +22,37 @@ function Board() {
             document.querySelector('.modifyClass').style.display = 'none';
             document.querySelector('.deleteClass').style.display = 'none';
             document.querySelector('.saveClass').style.display = 'inline-block';
-            clearFormFields();
+            // clearFormFields();
+            form.resetFields(); // 폼 초기화
         } else {
             document.querySelector('.saveClass').style.display = 'none';
             document.querySelector('.modifyClass').style.display = 'inline-block';
             document.querySelector('.deleteClass').style.display = 'inline-block';
             callSwToolInfoApi();
         }
-    }, [beforeSwtcode]);
+    }, [beforeSwtcode, form]);
 
 
     //등록 누를 시 폼 내용 사라지도록
-    const clearFormFields = () => {
-        document.querySelector('#is_title').value = '';
-        document.querySelector('#is_author').value = '';
-        document.querySelector('#is_text').value = '';
-    };
+    // const clearFormFields = () => {
+    //     document.querySelector('#is_title').value = '';
+    //     document.querySelector('#is_author').value = '';
+    //     document.querySelector('#is_text').value = '';
+    // };
 
     const callSwToolInfoApi = () => {
         axios.post('/api/board/swboard?type=list', {
             article_no: beforeSwtcode,
         }).then(response => {
             let data = response.data.json[0];
-            document.querySelector('#is_title').value = data.title;
-            document.querySelector('#is_author').value = data.write_id;
-            document.querySelector('#is_text').value = data.content;
+            form.setFieldsValue({ // 데이터를 폼에 설정
+                is_title: data.title,
+                is_author: data.write_id,
+                is_text: data.content,
+            });
+            // document.querySelector('#is_title').value = data.title;
+            // document.querySelector('#is_author').value = data.write_id;
+            // document.querySelector('#is_text').value = data.content;
         }).catch(error => { alert('조회 오류'); });
     };
 
@@ -171,7 +178,7 @@ function Board() {
                         <h2>게시글 수정/삭제</h2><br />
                     </div>
                     <div>
-                        <Form name="frm" id="frm" action="" method="post">
+                        <Form form={form} name="frm" id="frm" action="" method="post">
                             <input id="article_no" type="hidden" name="article_no" />
                             <input id="is_Email" type="hidden" name="is_Email" value="guest" />
                             <input id="is_beforeSwtcode" type="hidden" name="is_beforeSwtcode" value={beforeSwtcode} />
