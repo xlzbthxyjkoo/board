@@ -14,6 +14,24 @@
     text-overflow: ellipsis;
 }
 
-.table td {
-    max-width: 100px; /* 원하는 최대 너비 설정 */
+.table td{
+    max-width: 100px; 
+}
+
+
+.ant-table {
+    font-family: 'Gowun Dodum', sans-serif;
+}
+
+.ant-table-thead > tr > th {
+    font-family: 'Gowun Dodum', sans-serif;
+}
+
+.ant-table-tbody > tr > td {
+    font-family: 'Gowun Dodum', sans-serif;
+}
+
+.ant-table-tbody > tr:hover > td {
+    font-family: 'Gowun Dodum', sans-serif;
+    color: blueviolet;
 }

@@ -58,7 +58,7 @@ function Lists(props){
     
     
     return (
-            <div className="listcontainer">
+            <div className="listcontainer" style={{ fontFamily: "Gowun Dodum", fontWeight: 400 }}>
                 <div className="col-md-12">
                     <h2>게시글 목록</h2>
                     <div className='buttoncontainer'>
@@ -73,12 +73,13 @@ function Lists(props){
                             }}
                             onRow={(record) => ({
                                     onClick: () => handleClick(record.article_no),
-                            })}>
-                            <Column  className="truncate" title='article_no' dataIndex='article_no' key='article_no'></Column>
-                            <Column  className="truncate" title='title' dataIndex='title' key='title'></Column>
-                            <Column  className="truncate" title='content' dataIndex='content' key='content'></Column>
-                            <Column  className="truncate" title='write_date' dataIndex='write_date' key='write_date'></Column>
-                            <Column  className="truncate" title='write_id' dataIndex='write_id' key='write_id'></Column>
+                            })}
+                            >
+                            <Column  className="truncate" title='no' dataIndex='article_no' key='article_no'></Column>
+                            <Column  className="truncate" title='제목' dataIndex='title' key='title'></Column>
+                            <Column  className="truncate" title='내용' dataIndex='content' key='content'></Column>
+                            <Column  className="truncate" title='작성일' dataIndex='write_date' key='write_date'></Column>
+                            <Column  className="truncate" title='작성자' dataIndex='write_id' key='write_id'></Column>
                         </Table>
                     </div>
                 </div>
