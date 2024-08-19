@@ -30,6 +30,8 @@ function Board() {
         }
     }, [beforeSwtcode]);
 
+
+    //등록 누를 시 폼 내용 사라지도록
     const clearFormFields = () => {
         document.querySelector('#is_title').value = '';
         document.querySelector('#is_author').value = '';
@@ -109,21 +111,21 @@ function Board() {
 
         if (title_checker === '') {
             document.querySelector('#is_title').classList.add('border_validate_err');
-            alert('제목을 다시 확인해주세요.');
+            alert('제목을 입력하세요');
             return;
         }
         document.querySelector('#is_title').classList.remove('border_validate_err');
 
         if (author_checker === '') {
             document.querySelector('#is_author').classList.add('border_validate_err');
-            alert('작성자를 다시 확인해주세요.');
+            alert('작성자를 입력하세요');
             return;
         }
         document.querySelector('#is_author').classList.remove('border_validate_err');
 
         if (text_checker === '') {
             document.querySelector('#is_text').classList.add('border_validate_err');
-            alert('글 다시 확인해주세요.');
+            alert('글을 입력하세요');
             return;
         }
         document.querySelector('#is_text').classList.remove('border_validate_err');
@@ -169,7 +171,7 @@ function Board() {
                         <h2>게시글 수정/삭제</h2><br />
                     </div>
                     <div>
-                        <form name="frm" id="frm" action="" method="post" >
+                        <Form name="frm" id="frm" action="" method="post">
                             <input id="article_no" type="hidden" name="article_no" />
                             <input id="is_Email" type="hidden" name="is_Email" value="guest" />
                             <input id="is_beforeSwtcode" type="hidden" name="is_beforeSwtcode" value={beforeSwtcode} />
@@ -178,21 +180,40 @@ function Board() {
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <Form.Item label="제목" htmlFor="is_title" labelCol={{ style: { fontFamily: "Gowun Dodum", fontWeight: 400 } }} >
+                                                <Form.Item label="제목" name="is_title" htmlFor="is_title" 
+                                                      rules={[
+                                                        {
+                                                          required: true,
+                                                          message: '제목을 입력하세요',
+                                                        },
+                                                      ]}
+                                                labelCol={{ style: { fontFamily: "Gowun Dodum", fontWeight: 400 } }}>
                                                     <Input type="text" name="is_title" id="is_title" style={{ fontFamily: "Gowun Dodum", fontWeight: 400 }} />
                                                 </Form.Item>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <Form.Item label="작성자" htmlFor="is_author" labelCol={{ style: { fontFamily: "Gowun Dodum", fontWeight: 400 } }}>
+                                                <Form.Item label="작성자" name="is_author" htmlFor="is_author" labelCol={{ style: { fontFamily: "Gowun Dodum", fontWeight: 400 } }}
+                                                    rules={[
+                                                        {
+                                                        required: true,
+                                                        message: '작성자를 입력하세요',
+                                                        },
+                                                    ]}>
                                                     <Input type="text" name="is_author" id="is_author" style={{ fontFamily: "Gowun Dodum", fontWeight: 400 }} />
                                                 </Form.Item>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <Form.Item label="내용" htmlFor="is_text" labelCol={{ style: { fontFamily: "Gowun Dodum", fontWeight: 400 } }}>
+                                                <Form.Item label="내용" name="is_text" htmlFor="is_text" labelCol={{ style: { fontFamily: "Gowun Dodum", fontWeight: 400 } }}
+                                                    rules={[
+                                                        {
+                                                        required: true,
+                                                        message: '내용을 입력하세요',
+                                                        },
+                                                    ]}>
                                                     <TextArea rows={10} name="is_text" id="is_text" style={{ fontFamily: "Gowun Dodum", fontWeight: 400 }} />
                                                 </Form.Item>
                                             </td>
@@ -214,7 +235,7 @@ function Board() {
                                     </a>
                                 </div>
                             </div>
-                        </form>
+                        </Form>
                     </div>
                 </div>
             </div>
