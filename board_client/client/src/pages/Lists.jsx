@@ -6,42 +6,39 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from "react-router-dom";
 
 import { FormOutlined } from '@ant-design/icons';
-import { Pagination} from 'antd';
+import { Pagination, Table } from 'antd';
+const { Column} = Table;
  
 function Lists(props){
 
     let navigate = useNavigate();
-    const [append_List, setAppend_List] = useState([]);
+    const [datasource, setDatasource] = useState([]);
 
     let callListApi = async () => {
         axios.post('/api/board/swboard?type=list', { 
         }).then(response => {
             try {
-                let result = [];
+                //let result = [];
                 let SwToolList = response.data;
 
-                for(let i = 0; i < SwToolList.json.length; i++) {
-                    let data = SwToolList.json[i];
-                    // let title = data.title;
-                    // let content = data.content;
+                const newData = SwToolList.json.map((data, i) => {
                     let date = data.write_date;
-                    let year = date.substr(0,4);
-                    let month = date.substr(5,2);
-                    let day = date.substr(8,2);
-                    let write_date = year + '.' + month + '.' + day;
-                    // let write_id = data.write_id;
- 
-                    result.push(
-                        <tr key={i} onClick={() => handleRowClick(data.article_no)}>
-                            <td>{data.article_no} </td>
-                            <td className="truncate">{data.title} </td>
-                            <td className="truncate">{data.content} </td>
-                            <td>{write_date} </td>
-                            <td className="truncate">{data.write_id} </td>
-                        </tr>
-                    )
-                }
-                setAppend_List(result);
+                    let year = date.substr(0, 4);
+                    let month = date.substr(5, 2);
+                    let day = date.substr(8, 2);
+                    let write_date = `${year}.${month}.${day}`;
+    
+                    return {
+                        key: i,     
+                        article_no: data.article_no,
+                        title: data.title,
+                        content: data.content,
+                        write_date: write_date,
+                        write_id: data.write_id,
+                    };
+                });
+                setDatasource(newData);
+
             }catch(error){
                 alert('목록작업중 오류');
             }
@@ -51,17 +48,13 @@ function Lists(props){
         });
     };
 
-    const handleRowClick = (articleNo) => {
+    const handleClick = (articleNo) => {
         navigate(`/Board/${articleNo}`); // Navigate to the Board view with article number
     };
 
     useEffect(() => {
         callListApi();
     }, []); 
-
-    useEffect(() => {
-        console.log("List updated: ", append_List);
-    }, [append_List]);  // append_List가 변경될 때마다 로그를 출력
     
     
     return (
@@ -74,22 +67,19 @@ function Lists(props){
                         </Link>
                     </div>
                     <div>
-                        <table className="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">no.</th>
-                                    <th scope="col">제목</th>
-                                    <th scope="col">내용</th>
-                                    <th scope="col">날짜</th>
-                                    <th scope="col">작성자</th>
-                                </tr>
-                            </thead>
-                        </table>
-                        <table className="table table-hover">
-                            <tbody className="listbody">
-                                {append_List}
-                            </tbody>
-                        </table>
+                        <Table className="table" dataSource={datasource} pagination={{
+                                pageSize: 7, 
+                                position: ['bottomCenter']
+                            }}
+                            onRow={(record) => ({
+                                    onClick: () => handleClick(record.article_no),
+                            })}>
+                            <Column  className="truncate" title='article_no' dataIndex='article_no' key='article_no'></Column>
+                            <Column  className="truncate" title='title' dataIndex='title' key='title'></Column>
+                            <Column  className="truncate" title='content' dataIndex='content' key='content'></Column>
+                            <Column  className="truncate" title='write_date' dataIndex='write_date' key='write_date'></Column>
+                            <Column  className="truncate" title='write_id' dataIndex='write_id' key='write_id'></Column>
+                        </Table>
                     </div>
                 </div>
             </div>
